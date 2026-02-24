@@ -1,0 +1,228 @@
+================================================================================
+                    KRISHI SAKHI - SETUP CHECKLIST
+                  Print this and check off as you go!
+================================================================================
+
+Date Started: ________________    Date Completed: ________________
+
+
+PHASE 1: FIREBASE SETUP
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[ ] Go to console.firebase.google.com
+[ ] Click "Add Project"
+[ ] Name your project: ______________________________
+[ ] Enable Google Analytics (recommended)
+[ ] Complete project creation
+[ ] Project created successfully
+
+ANDROID APP:
+[ ] Click "Add app" → Android icon
+[ ] Package name: com.yourcompany.krishisakhi (or custom: _______________)
+[ ] Download google-services.json
+[ ] Move to: android/app/google-services.json (REPLACE the old one)
+[ ] Android app registered
+
+IOS APP (if building for iOS):
+[ ] Click "Add app" → iOS icon  
+[ ] Bundle ID: com.yourcompany.krishisakhi (match Android package)
+[ ] Download GoogleService-Info.plist
+[ ] Move to: ios/Runner/GoogleService-Info.plist (REPLACE the old one)
+[ ] iOS app registered
+
+WEB APP (if building for web):
+[ ] Click "Add app" → Web icon
+[ ] Register app with nickname: ______________________________
+[ ] Copy these values:
+    API Key: ___________________________________________
+    Auth Domain: _______________________________________
+    Project ID: ________________________________________
+    Storage Bucket: ____________________________________
+    Messaging Sender ID: _______________________________
+    App ID: ____________________________________________
+    Measurement ID: ____________________________________
+[ ] Paste into: lib/backend/firebase/firebase_config.dart
+[ ] Web app registered
+
+FIREBASE SERVICES:
+[ ] Authentication → Enable Email/Password
+[ ] Authentication → Enable Google Sign-In (optional)
+[ ] Firestore Database → Create database → Start in test mode
+[ ] Storage → Get Started → Use default settings
+[ ] Firebase setup complete ✓
+
+
+PHASE 2: SUPABASE SETUP
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[ ] Go to app.supabase.com
+[ ] Click "New Project"
+[ ] Organization: ______________________________
+[ ] Project name: ______________________________
+[ ] Database password: __________________________ (SAVE THIS!)
+[ ] Region: ____________________________________
+[ ] Wait for project initialization (~2 min)
+[ ] Project created successfully
+
+SUPABASE CONFIGURATION:
+[ ] Go to Settings → API
+[ ] Copy these values:
+    Project URL: _______________________________________
+    Anon/Public Key: ___________________________________
+[ ] Open: lib/backend/supabase/supabase.dart
+[ ] Replace line 7: _kSupabaseUrl = 'YOUR_URL_HERE'
+[ ] Replace line 8-9: _kSupabaseAnonKey = 'YOUR_KEY_HERE'
+[ ] Save file
+[ ] Supabase configuration complete ✓
+
+
+PHASE 3: EXTERNAL API KEYS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+WEATHER API:
+[ ] Go to weatherapi.com
+[ ] Sign up for free account
+[ ] Email: ____________________________________
+[ ] Get API key from dashboard: ___________________________________
+[ ] Open: lib/backend/api_requests/api_calls.dart
+[ ] Find KeralaWeatherAPICall (around line 19)
+[ ] Replace 'YOUR_WEATHER_API_KEY' with your key
+[ ] Save file
+[ ] Weather API configured ✓
+
+NEWS API:
+[ ] Go to thenewsapi.com
+[ ] Sign up for free account
+[ ] Email: ____________________________________
+[ ] Get API token from dashboard: __________________________________
+[ ] Open: lib/backend/api_requests/api_calls.dart
+[ ] Find NewsAPICall (around line 38)
+[ ] Replace 'YOUR_NEWS_API_TOKEN' with your token
+[ ] Save file
+[ ] News API configured ✓
+
+GEMINI AI (Optional but recommended):
+[ ] Go to makersuite.google.com/app/apikey
+[ ] Sign in with Google account
+[ ] Create API Key
+[ ] Copy key: _______________________________________________
+[ ] Store securely (you'll pass it to the app when needed)
+[ ] Gemini AI key obtained ✓
+
+
+PHASE 4: PACKAGE NAME & APP IDENTITY
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ANDROID:
+[ ] Open: android/app/build.gradle
+[ ] Find: applicationId "com.mycompany.krishisakhi2"
+[ ] Change to: applicationId "YOUR.PACKAGE.NAME"
+[ ] Save file
+
+IOS (if applicable):
+[ ] Open: ios/Runner.xcworkspace in Xcode
+[ ] Select Runner target
+[ ] General tab → Bundle Identifier
+[ ] Change to match Android package name
+[ ] Save
+
+APP NAME (optional):
+[ ] Android: android/app/src/main/AndroidManifest.xml → android:label
+[ ] iOS: ios/Runner/Info.plist → CFBundleDisplayName
+[ ] Choose your app name: ______________________________
+
+
+PHASE 5: FLUTTER DEPENDENCIES
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[ ] Open Terminal/PowerShell in project root
+[ ] Run: flutter clean
+[ ] Run: flutter pub get
+[ ] (iOS only) cd ios && pod install && cd ..
+[ ] No errors during dependency installation
+[ ] Dependencies installed ✓
+
+
+PHASE 6: VERIFICATION
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+CONFIGURATION CHECK:
+[ ] Run: .\check-setup.ps1
+[ ] All checks pass (or only warnings)
+[ ] Fix any red errors shown
+
+FLUTTER DOCTOR:
+[ ] Run: flutter doctor
+[ ] Flutter version: ____________________
+[ ] No critical issues shown
+[ ] Android toolchain OK (if building for Android)
+[ ] Xcode OK (if building for iOS)
+
+FIRST BUILD:
+[ ] Connect device or start emulator
+[ ] Run: flutter run
+[ ] App builds successfully (may take 5-10 min first time)
+[ ] No configuration errors in console
+[ ] App launches on device
+[ ] First build successful ✓
+
+
+PHASE 7: FEATURE TESTING
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[ ] Create new account / Sign up
+[ ] Email used: ____________________________________
+[ ] Account creation successful
+[ ] Check Firebase Authentication → Users (should see new user)
+[ ] Check Supabase Authentication (should see user)
+
+[ ] Sign out and sign in again
+[ ] Authentication works both ways
+
+[ ] Weather feature works (data loads)
+[ ] News feed works (articles load)
+[ ] AI chatbot works (if Gemini key added)
+[ ] Can save data (check Firestore/Supabase for entries)
+
+[ ] All tested features work ✓
+
+
+PHASE 8: SECURITY & CLEANUP
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[ ] Check .gitignore includes:
+    - android/app/google-services.json
+    - ios/Runner/GoogleService-Info.plist
+    - .env
+    - ORIGINAL_CREDENTIALS_BACKUP.txt
+
+[ ] Delete: ORIGINAL_CREDENTIALS_BACKUP.txt (if you don't need reference)
+
+PRODUCTION SECURITY (before going live):
+[ ] Firebase Firestore → Rules → Set proper security rules
+[ ] Firebase Storage → Rules → Set proper security rules  
+[ ] Supabase → Authentication → Set up RLS policies
+[ ] Supabase → Database → Row Level Security enabled
+
+[ ] All security measures in place ✓
+
+
+================================================================================
+                              SETUP COMPLETE! 🎉
+================================================================================
+
+[ ] Project fully configured and working
+[ ] Ready for development and customization
+[ ] Completely independent from original developer
+
+Next Steps:
+  • Customize the app for your needs
+  • Add your own branding
+  • Test thoroughly
+  • Deploy to your users!
+
+Notes:
+________________________________________________________________________________
+________________________________________________________________________________
+________________________________________________________________________________
+________________________________________________________________________________
+________________________________________________________________________________
+
+================================================================================
+Time Started: ________________    Time Completed: ________________
+Total Time: _____________
+
+Completed by: ___________________________    Date: _______________
+================================================================================
