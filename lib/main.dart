@@ -25,80 +25,56 @@ void main() async {
   String? initError;
 
   try {
-    print('Initializing Firebase...');
-    await initFirebase().timeout(Duration(seconds: 10));
-    print('✓ Firebase initialized');
+    print('🚀 Starting KrishiX Initialization...');
+    
+    // Firebase initialization with longer timeout
+    try {
+      print('📱 Initializing Firebase...');
+      await initFirebase().timeout(Duration(seconds: 30));
+      print('✅ Firebase initialized successfully');
+    } catch (e) {
+      print('⚠️ Firebase initialization failed: $e');
+      print('Continuing without Firebase...');
+    }
 
-    print('Initializing Supabase...');
-    await SupaFlow.initialize().timeout(Duration(seconds: 10));
-    print('✓ Supabase initialized');
+    // Supabase initialization with longer timeout
+    try {
+      print('🗄️ Initializing Supabase...');
+      await SupaFlow.initialize().timeout(Duration(seconds: 30));
+      print('✅ Supabase initialized successfully');
+    } catch (e) {
+      print('⚠️ Supabase initialization warning: $e');
+      // Continue anyway - app might work in offline mode
+    }
 
-    print('Initializing FlutterFlowTheme...');
-    await FlutterFlowTheme.initialize();
-    print('✓ FlutterFlowTheme initialized');
+    // Theme initialization
+    try {
+      print('🎨 Initializing FlutterFlowTheme...');
+      await FlutterFlowTheme.initialize();
+      print('✅ FlutterFlowTheme initialized');
+    } catch (e) {
+      print('⚠️ Theme initialization warning: $e');
+    }
 
-    print('Initializing FFLocalizations...');
-    await FFLocalizations.initialize();
-    print('✓ FFLocalizations initialized');
+    // Localizations initialization
+    try {
+      print('🌐 Initializing FFLocalizations...');
+      await FFLocalizations.initialize();
+      print('✅ FFLocalizations initialized');
+    } catch (e) {
+      print('⚠️ Localizations initialization warning: $e');
+    }
 
-    print('Starting app...');
+    print('✅ App initialization complete! Starting app...');
   } catch (e, stackTrace) {
-    print('❌ ERROR DURING INITIALIZATION: $e');
+    print('❌ CRITICAL ERROR DURING INITIALIZATION: $e');
     print('Stack trace: $stackTrace');
     initializationSuccess = false;
     initError = e.toString();
   }
 
-  if (initializationSuccess) {
-    runApp(MyApp());
-  } else {
-    runApp(MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: Scaffold(
-        backgroundColor: Colors.white,
-        body: Center(
-          child: Padding(
-            padding: EdgeInsets.all(20),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Icon(Icons.error_outline, size: 64, color: Colors.red),
-                SizedBox(height: 20),
-                Text(
-                  'Initialization Error',
-                  style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-                ),
-                SizedBox(height: 10),
-                Text(
-                  'Error: $initError',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(fontSize: 14, color: Colors.red),
-                ),
-                SizedBox(height: 20),
-                if (kIsWeb)
-                  ElevatedButton(
-                    onPressed: () {
-                      // Reload the app (web only)
-                      // ignore: avoid_web_libraries_in_flutter
-                      // html.window.location.reload();
-                    },
-                    child: Text('Reload App'),
-                  )
-                else
-                  ElevatedButton(
-                    onPressed: () {
-                      // Restart the app on mobile
-                      // User needs to manually restart
-                    },
-                    child: Text('Please Restart App'),
-                  ),
-              ],
-            ),
-          ),
-        ),
-      ),
-    ));
-  }
+  // Always try to run the app unless critical error
+  runApp(MyApp());
 }
 
 class MyApp extends StatefulWidget {
