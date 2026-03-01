@@ -67,7 +67,8 @@ class _FarmeringExpertWidgetState extends State<FarmeringExpertWidget> {
             ),
           );
         }
-        List<FarmerDataRow> farmeringExpertFarmerDataRowList = snapshot.data!;
+        // Data available but not currently used in the UI
+        // List<FarmerDataRow> farmeringExpertFarmerDataRowList = snapshot.data!;
 
         return GestureDetector(
           onTap: () {

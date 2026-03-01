@@ -2714,39 +2714,40 @@ recommendation */
                                                         'HOME_CircleImage_oobm7gia_ON_TAP');
                                                     logFirebaseEvent(
                                                         'CircleImage_alert_dialog');
-                                                    var confirmDialogResponse =
-                                                        await showDialog<bool>(
-                                                              context: context,
-                                                              builder:
-                                                                  (alertDialogContext) {
-                                                                return WebViewAware(
-                                                                  child:
-                                                                      AlertDialog(
-                                                                    title: Text(
-                                                                        'Coming soon ...'),
-                                                                    content: Text(
-                                                                        'more features are on the way '),
-                                                                    actions: [
-                                                                      TextButton(
-                                                                        onPressed: () => Navigator.pop(
+                                                    await showDialog<bool>(
+                                                          context: context,
+                                                          builder:
+                                                              (alertDialogContext) {
+                                                            return WebViewAware(
+                                                              child:
+                                                                  AlertDialog(
+                                                                title: Text(
+                                                                    'Coming soon ...'),
+                                                                content: Text(
+                                                                    'more features are on the way '),
+                                                                actions: [
+                                                                  TextButton(
+                                                                    onPressed: () =>
+                                                                        Navigator.pop(
                                                                             alertDialogContext,
                                                                             false),
-                                                                        child: Text(
-                                                                            'Cancel'),
-                                                                      ),
-                                                                      TextButton(
-                                                                        onPressed: () => Navigator.pop(
+                                                                    child: Text(
+                                                                        'Cancel'),
+                                                                  ),
+                                                                  TextButton(
+                                                                    onPressed: () =>
+                                                                        Navigator.pop(
                                                                             alertDialogContext,
                                                                             true),
-                                                                        child: Text(
-                                                                            'Confirm'),
-                                                                      ),
-                                                                    ],
+                                                                    child: Text(
+                                                                        'Confirm'),
                                                                   ),
-                                                                );
-                                                              },
-                                                            ) ??
-                                                            false;
+                                                                ],
+                                                              ),
+                                                            );
+                                                          },
+                                                        ) ??
+                                                        false;
                                                   },
                                                   child: Container(
                                                     width: 50.0,

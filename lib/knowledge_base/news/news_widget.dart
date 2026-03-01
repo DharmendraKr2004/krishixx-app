@@ -733,7 +733,7 @@ class _NewsWidgetState extends State<NewsWidget> {
                           logFirebaseEvent(
                               'NEWS_PAGE_CircleImage_0807sjrn_ON_TAP');
                           logFirebaseEvent('CircleImage_alert_dialog');
-                          var confirmDialogResponse = await showDialog<bool>(
+                          await showDialog<bool>(
                                 context: context,
                                 builder: (alertDialogContext) {
                                   return WebViewAware(

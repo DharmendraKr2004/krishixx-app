@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
 
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_web_plugins/url_strategy.dart';
@@ -20,13 +21,16 @@ void main() async {
   GoRouter.optionURLReflectsImperativeAPIs = true;
   usePathUrlStrategy();
 
+  bool initializationSuccess = true;
+  String? initError;
+
   try {
     print('Initializing Firebase...');
-    await initFirebase();
+    await initFirebase().timeout(Duration(seconds: 10));
     print('✓ Firebase initialized');
 
     print('Initializing Supabase...');
-    await SupaFlow.initialize();
+    await SupaFlow.initialize().timeout(Duration(seconds: 10));
     print('✓ Supabase initialized');
 
     print('Initializing FlutterFlowTheme...');
@@ -38,12 +42,20 @@ void main() async {
     print('✓ FFLocalizations initialized');
 
     print('Starting app...');
-    runApp(MyApp());
   } catch (e, stackTrace) {
     print('❌ ERROR DURING INITIALIZATION: $e');
     print('Stack trace: $stackTrace');
+    initializationSuccess = false;
+    initError = e.toString();
+  }
+
+  if (initializationSuccess) {
+    runApp(MyApp());
+  } else {
     runApp(MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: Scaffold(
+        backgroundColor: Colors.white,
         body: Center(
           child: Padding(
             padding: EdgeInsets.all(20),
@@ -58,10 +70,28 @@ void main() async {
                 ),
                 SizedBox(height: 10),
                 Text(
-                  'Error: $e',
+                  'Error: $initError',
                   textAlign: TextAlign.center,
                   style: TextStyle(fontSize: 14, color: Colors.red),
                 ),
+                SizedBox(height: 20),
+                if (kIsWeb)
+                  ElevatedButton(
+                    onPressed: () {
+                      // Reload the app (web only)
+                      // ignore: avoid_web_libraries_in_flutter
+                      // html.window.location.reload();
+                    },
+                    child: Text('Reload App'),
+                  )
+                else
+                  ElevatedButton(
+                    onPressed: () {
+                      // Restart the app on mobile
+                      // User needs to manually restart
+                    },
+                    child: Text('Please Restart App'),
+                  ),
               ],
             ),
           ),
